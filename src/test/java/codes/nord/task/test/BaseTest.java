@@ -14,7 +14,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 public class BaseTest {
 
     protected static WireMockServer wireMockServer;
-    private static Process appProcess;
 
     @BeforeAll
     static void globalSetup() {
@@ -25,10 +24,6 @@ public class BaseTest {
     @AfterAll
     static void globalTeardown() {
         EndpointClient.sendPostRequest("LOGOUT", VALID_TOKEN, API_KEY);
-
-        if (appProcess != null && appProcess.isAlive()) {
-            appProcess.destroyForcibly();
-        }
         if (wireMockServer != null) {
             wireMockServer.stop();
         }
